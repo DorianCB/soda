@@ -18,24 +18,24 @@
 
     <main id="menu">
         <div class="producto">
-            <img src="pictures/empanada.png" alt="Empanada de Queso" class="img-producto">
+            <img src="pictures/empanada.png" alt="Empanada" class="img-producto">
             <div class="detalles-producto">
                 <div class="info-producto">
-                    <h3>Empanada de Queso</h3>
+                    <h3>Empanada Especial</h3>
                     <p>₡1000</p>
                 </div>
-                <button class="btn-agregar" onclick="agregarAlCarrito('Empanada de Queso', 1000, 'pictures/empanada.png')">+</button>
+                <button class="btn-agregar" onclick="abrirOpciones('Empanada', 1000, 'pictures/empanada.png')">+</button>
             </div>
         </div>
 
         <div class="producto">
-            <img src="pictures/casado.png" alt="Casado Completo" class="img-producto">
+            <img src="pictures/casado.png" alt="Casado" class="img-producto">
             <div class="detalles-producto">
                 <div class="info-producto">
                     <h3>Casado Completo</h3>
                     <p>₡3500</p>
                 </div>
-                <button class="btn-agregar" onclick="agregarAlCarrito('Casado Completo', 3500, 'pictures/casado.png')">+</button>
+                <button class="btn-agregar" onclick="agregarDirecto('Casado Completo', 3500, 'pictures/casado.png')">+</button>
             </div>
         </div>
     </main>
@@ -44,18 +44,36 @@
         🛒 <span id="contador-carrito">0</span>
     </div>
 
+    <div id="modal-opciones" class="modal">
+        <div class="contenido-modal">
+            <span class="cerrar" onclick="cerrarOpciones()">&times;</span>
+            <h2 id="opciones-titulo">Personalizar</h2>
+            
+            <div class="seccion-opcion">
+                <p><strong>¿De qué la quieres?</strong></p>
+                <div class="selector-tipo">
+                    <label><input type="radio" name="relleno" value="Carne" checked> Carne</label>
+                    <label><input type="radio" name="relleno" value="Pollo"> Pollo</label>
+                </div>
+            </div>
+
+            <div class="seccion-opcion">
+                <p><strong>Notas especiales:</strong></p>
+                <textarea id="notas-producto" placeholder="Ej: Sin salsas, bien tostada..."></textarea>
+            </div>
+
+            <button class="btn-finalizar" onclick="confirmarAgregado()">Agregar al pedido</button>
+        </div>
+    </div>
+
     <div id="modal-carrito" class="modal">
         <div class="contenido-modal">
             <span class="cerrar" onclick="cerrarCarrito()">&times;</span>
             <h2>Tu Pedido</h2>
-            
-            <div id="items-carrito">
-                </div>
-
+            <div id="items-carrito"></div>
             <div class="total-contenedor">
                 <strong>Total: ₡<span id="total-modal">0</span></strong>
             </div>
-
             <button class="btn-finalizar" onclick="enviarWhatsApp()">
                 Confirmar en WhatsApp 📱
             </button>
