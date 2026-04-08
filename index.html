@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventanita de Chavela - Pedidos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Ventanita de Chavela</h1>
+        <p>Pedí por aquí y solo pasá a recoger 🌯</p>
+    </header>
+
+    <main id="menu">
+        <div class="producto">
+            <img src="pictures/empanada.png" alt="Empanada de Queso de Chavela" class="img-producto">
+            <div class="detalles-producto">
+                <div class="info-producto">
+                    <h3>Empanada de Queso</h3>
+                    <p>₡1000</p>
+                </div>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Empanada de Queso', 1000)">+</button>
+            </div>
+        </div>
+
+        <div class="producto">
+            <img src="pictures/casado.png" alt="Casado Completo de Chavela" class="img-producto">
+            <div class="detalles-producto">
+                <div class="info-producto">
+                    <h3>Casado Completo</h3>
+                    <p>₡3500</p>
+                </div>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Casado Completo', 3500)">+</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="btn-carrito-flotante" onclick="abrirCarrito()">
+        🛒 <span id="contador-carrito">0</span>
+    </div>
+
+    <div id="modal-carrito" class="modal">
+        <div class="contenido-modal">
+            <span class="cerrar" onclick="cerrarCarrito()">&times;</span>
+            <h2>Tu Pedido</h2>
+            <div id="items-carrito">
+                </div>
+            <div class="total-contenedor">
+                <strong>Total: ₡<span id="total-modal">0</span></strong>
+            </div>
+            <button class="btn-finalizar" onclick="enviarWhatsApp()">
+                Confirmar en WhatsApp 📱
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
