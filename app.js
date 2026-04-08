@@ -1,14 +1,35 @@
 let carrito = [];
 
+// Agrega un producto o aumenta su cantidad si ya existe
 function agregarAlCarrito(nombre, precio, urlImagen) {
-    // AHORA GUARDAMOS TAMBIÉN LA IMAGEN
-    carrito.push({ nombre, precio, urlImagen });
+    const itemExistente = carrito.find(item => item.nombre === nombre);
+
+    if (itemExistente) {
+        itemExistente.cantidad += 1;
+    } else {
+        carrito.push({ nombre, precio, urlImagen, cantidad: 1 });
+    }
+    
     actualizarContador();
-    console.log("Agregado a la Ventanita: " + nombre);
 }
 
+// Suma todas las cantidades para el icono flotante
 function actualizarContador() {
-    document.getElementById('contador-carrito').innerText = carrito.length;
+    const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    document.getElementById('contador-carrito').innerText = totalItems;
+}
+
+// Función para los botones + y - del Spinbox
+function cambiarCantidad(nombre, delta) {
+    const item = carrito.find(i => i.nombre === nombre);
+    if (item) {
+        item.cantidad += delta;
+        if (item.cantidad <= 0) {
+            carrito = carrito.filter(i => i.nombre !== nombre);
+        }
+    }
+    actualizarContador();
+    abrirCarrito(); // Refresca el modal para mostrar cambios
 }
 
 function abrirCarrito() {
@@ -20,16 +41,23 @@ function abrirCarrito() {
     let total = 0;
 
     if (carrito.length === 0) {
-        lista.innerHTML = "<p style='text-align:center;'>Tu carrito está vacío 🌮</p>";
+        lista.innerHTML = "<p style='text-align:center; padding:20px;'>Tu carrito está vacío 🌮</p>";
     } else {
         carrito.forEach((item) => {
             lista.innerHTML += `
-                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:5px;">
-                    <img src="${item.urlImagen}" alt="${item.nombre}" style="width:40px; height:40px; border-radius:5px; object-fit:cover; margin-right:10px;">
-                    <span style="flex:1;">${item.nombre}</span>
-                    <strong>₡${item.precio}</strong>
+                <div class="item-carrito-fila">
+                    <img src="${item.urlImagen}" alt="${item.nombre}">
+                    <div class="item-info">
+                        <span>${item.nombre}</span>
+                        <strong>₡${item.precio * item.cantidad}</strong>
+                    </div>
+                    <div class="spinbox">
+                        <button onclick="cambiarCantidad('${item.nombre}', -1)">-</button>
+                        <span>${item.cantidad}</span>
+                        <button onclick="cambiarCantidad('${item.nombre}', 1)">+</button>
+                    </div>
                 </div>`;
-            total += item.precio;
+            total += (item.precio * item.cantidad);
         });
     }
 
@@ -42,28 +70,23 @@ function cerrarCarrito() {
 }
 
 function enviarWhatsApp() {
-    if (carrito.length === 0) {
-        alert("¡Tu carrito está vacío! Elegí algo rico de la Ventanita.");
-        return;
-    }
+    if (carrito.length === 0) return;
 
     let texto = "¡Hola Chavela! 👋 Quisiera hacer un pedido:%0A%0A";
     let total = 0;
 
-    carrito.forEach((item, index) => {
-        // Al WhatsApp solo mandamos texto, las imágenes no hacen falta
-        texto += `${index + 1}. ${item.nombre} - ₡${item.precio}%0A`;
-        total += item.precio;
+    carrito.forEach((item) => {
+        texto += `• ${item.cantidad}x ${item.nombre} - ₡${item.precio * item.cantidad}%0A`;
+        total += (item.precio * item.cantidad);
     });
 
-    texto += `%0A*Total a pagar: ₡${total}*%0A%0A_Enviado desde el Menú Digital_`;
+    texto += `%0A*Total: ₡${total}*`;
     
     const numeroChavela = "50687304779"; 
     window.open(`https://wa.me/${numeroChavela}?text=${texto}`, '_blank');
 }
 
-// Cerrar al tocar fuera de la ventana
-window.onclick = function(event) {
-    const modal = document.getElementById('modal-carrito');
-    if (event.target == modal) cerrarCarrito();
+// Cerrar modal al hacer clic fuera
+window.onclick = (event) => {
+    if (event.target == document.getElementById('modal-carrito')) cerrarCarrito();
 }

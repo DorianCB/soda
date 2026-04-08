@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventanita de Chavela - Pedidos</title>
+    
+    <link rel="icon" type="image/png" href="pictures/empanada.png">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,24 +18,24 @@
 
     <main id="menu">
         <div class="producto">
-            <img src="pictures/empanada.png" alt="Empanada de Queso de Chavela" class="img-producto">
+            <img src="pictures/empanada.png" alt="Empanada de Queso" class="img-producto">
             <div class="detalles-producto">
                 <div class="info-producto">
                     <h3>Empanada de Queso</h3>
                     <p>₡1000</p>
                 </div>
-                <button class="btn-agregar" onclick="agregarAlCarrito('Empanada de Queso', 1000)">+</button>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Empanada de Queso', 1000, 'pictures/empanada.png')">+</button>
             </div>
         </div>
 
         <div class="producto">
-            <img src="pictures/casado.png" alt="Casado Completo de Chavela" class="img-producto">
+            <img src="pictures/casado.png" alt="Casado Completo" class="img-producto">
             <div class="detalles-producto">
                 <div class="info-producto">
                     <h3>Casado Completo</h3>
                     <p>₡3500</p>
                 </div>
-                <button class="btn-agregar" onclick="agregarAlCarrito('Casado Completo', 3500)">+</button>
+                <button class="btn-agregar" onclick="agregarAlCarrito('Casado Completo', 3500, 'pictures/casado.png')">+</button>
             </div>
         </div>
     </main>
@@ -45,11 +48,14 @@
         <div class="contenido-modal">
             <span class="cerrar" onclick="cerrarCarrito()">&times;</span>
             <h2>Tu Pedido</h2>
+            
             <div id="items-carrito">
                 </div>
+
             <div class="total-contenedor">
                 <strong>Total: ₡<span id="total-modal">0</span></strong>
             </div>
+
             <button class="btn-finalizar" onclick="enviarWhatsApp()">
                 Confirmar en WhatsApp 📱
             </button>
