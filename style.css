@@ -10,51 +10,83 @@
 body { background-color: var(--gris); color: var(--oscuro); padding-bottom: 100px; }
 
 /* --- AJUSTES DEL HEADER --- */
+/* --- BUSCA Y REEMPLAZA TU SECCIÓN DE HEADER CON ESTA --- */
+/* --- HEADER CENTRADO --- */
 header {
     background-color: var(--primario);
     color: white;
-    padding: 1.5rem 1rem; /* Margen superior/inferior ajustado */
+    padding: 2rem 1rem; /* Espaciado interno balanceado */
     border-radius: 0 0 25px 25px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    /* Asegura que el contenido del header se centre */
+    display: flex;
+    justify-content: center; 
 }
 
 .header-contenido {
     display: flex;
-    align-items: center; /* Centra verticalmente logo y texto */
-    justify-content: flex-start; /* ALINEA TODO A LA IZQUIERDA */
-    gap: 15px; /* Espacio entre el logo y el texto */
-    max-width: 600px; /* Evita que se estire demasiado en tablets */
-    margin: 0 auto; /* Centra el bloque entero si la pantalla es ancha */
+    flex-direction: row; /* Cambiamos a columna para apilar logo y texto */
+    align-items: center;    /* Centra horizontalmente logo y texto */
+    text-align: center;     /* Centra las líneas de texto */
+    gap: 15px;              /* Espacio entre logo y el bloque de texto */
+    width: 100%;
+    max-width: 500px;
 }
 
 .img-logo-header {
-    width: 28%; /* Ocupa el porcentaje como tu recuadro rojo (aprox) */
-    max-width: 90px; /* Pero no más grande que esto para que no se vea feo */
-    height: auto; /* Mantiene la proporción de la imagen */
-    border-radius: 50%; /* Hace el logo redondo */
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
     object-fit: cover;
-    background-color: #f1c40f; /* Color amarillo de fondo del logo */
-    border: 3px solid white; /* Borde blanco para que resalte */
+    background-color: #f1c40f;
+    border: 3px solid white;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    flex-shrink: 0; /* Evita que el logo se aplaste */
+    flex-shrink: 0;
 }
 
 .header-texto {
     display: flex;
     flex-direction: column;
-    text-align: left; /* ALINEA EL TEXTO A LA IZQUIERDA */
+    align-items: center; /* Asegura que el H1 y P estén centrados entre sí */
 }
 
 .header-texto h1 {
-    font-size: 1.6rem; /* Tamaño del título */
-    margin-bottom: 2px;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    margin-bottom: 5px;
 }
 
 .header-texto p {
-    font-size: 0.95rem; /* Tamaño del subtítulo */
-    opacity: 0.9;
+    font-size: 0.9rem;
+    opacity: 0.95;
 }
 
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 375px) {
+    .img-logo-header {
+        width: 75px;
+        height: 75px;
+    }
+    .header-texto h1 {
+        font-size: 1.4rem;
+    }
+}
+/* --- AGREGA ESTO AL FINAL DE TU ARCHIVO STYLE.CSS --- */
+/* Ajustes específicos para celulares muy pequeños (como iPhone 13 Mini o anchos < 380px) */
+@media (max-width: 375px) {
+    .img-logo-header {
+        width: 65px; /* Encogemos el logo un poquito más en pantallas críticas */
+        height: 65px;
+    }
+    
+    .header-texto h1 {
+        font-size: 1.2rem; /* Bajamos la letra para que quepa en una o dos líneas bien claras */
+    }
+
+    .header-texto p {
+        font-size: 0.75rem;
+    }
+}
 /* --- RESTO DEL DISEÑO --- */
 #menu { padding: 1rem; display: grid; gap: 15px; }
 
