@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ventanita de Chavela - Pedidos</title>
-    
     <link rel="icon" type="image/png" href="pictures/icono.png">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +12,6 @@
     <header>
         <div class="header-contenido">
             <img src="pictures/icono.png" alt="Logo Chavela" class="img-logo-header">
-            
             <div class="header-texto">
                 <h1>Ventanita de Chavela</h1>
                 <p>Pedí por aquí y solo pasá a recoger 🌯</p>
@@ -22,26 +19,31 @@
         </div>
     </header>
 
-    <main id="menu">
-        <div class="producto">
-            <img src="pictures/empanada.png" alt="Empanada Especial" class="img-producto">
-            <div class="detalles-producto">
-                <div class="info-producto">
-                    <h3>Empanada Especial</h3>
-                    <p>₡1000</p>
-                </div>
-                <button class="btn-agregar" onclick="abrirOpciones('Empanada Especial', 1000, 'pictures/empanada.png')">+</button>
+    <div class="categorias-container">
+        <button class="btn-categoria active" onclick="filtrarMenu('todo', this)">Menú General</button>
+        <button class="btn-categoria" onclick="filtrarMenu('estudiantil', this)">Estudiantil 🎓</button>
+    </div>
+
+    <main id="menu" class="grid-menu">
+        <div class="producto-card">
+            <div class="imagen-contenedor">
+                <img src="pictures/casado.png" alt="Casado">
+                <button class="btn-flotante-agregar" onclick="agregarDirecto('Casado Completo', 3500, 'pictures/casado.png')">+</button>
+            </div>
+            <div class="info-card">
+                <h3>Casado Completo</h3>
+                <p class="precio">₡3500</p>
             </div>
         </div>
 
-        <div class="producto">
-            <img src="pictures/casado.png" alt="Casado Completo" class="img-producto">
-            <div class="detalles-producto">
-                <div class="info-producto">
-                    <h3>Casado Completo</h3>
-                    <p>₡3500</p>
-                </div>
-                <button class="btn-agregar" onclick="agregarDirecto('Casado Completo', 3500, 'pictures/casado.png')">+</button>
+        <div class="producto-card estudiantil">
+            <div class="imagen-contenedor">
+                <img src="pictures/empanada.png" alt="Empanada">
+                <button class="btn-flotante-agregar" onclick="abrirOpciones('Empanada Especial', 1000, 'pictures/empanada.png')">+</button>
+            </div>
+            <div class="info-card">
+                <h3>Empanada Estudiantil</h3>
+                <p class="precio">₡1000</p>
             </div>
         </div>
     </main>
@@ -50,41 +52,8 @@
         🛒 <span id="contador-carrito">0</span>
     </div>
 
-    <div id="modal-opciones" class="modal">
-        <div class="contenido-modal">
-            <span class="cerrar" onclick="cerrarOpciones()">&times;</span>
-            <h2 id="opciones-titulo">Opciones</h2>
-            
-            <div class="seccion-opcion">
-                <p><strong>¿De qué la quieres?</strong></p>
-                <div class="selector-tipo">
-                    <label><input type="radio" name="relleno" value="Carne" checked> Carne</label>
-                    <label><input type="radio" name="relleno" value="Pollo"> Pollo</label>
-                </div>
-            </div>
-
-            <div class="seccion-opcion">
-                <p><strong>Notas especiales:</strong></p>
-                <textarea id="notas-producto" placeholder="Ej: Sin salsas, bien tostada..."></textarea>
-            </div>
-
-            <button class="btn-finalizar" onclick="confirmarAgregado()">Agregar al pedido</button>
-        </div>
-    </div>
-
-    <div id="modal-carrito" class="modal">
-        <div class="contenido-modal">
-            <span class="cerrar" onclick="cerrarCarrito()">&times;</span>
-            <h2>Tu Pedido</h2>
-            <div id="items-carrito"></div>
-            <div class="total-contenedor">
-                <strong>Total: ₡<span id="total-modal">0</span></strong>
-            </div>
-            <button class="btn-finalizar" onclick="enviarWhatsApp()">
-                Confirmar en WhatsApp 📱
-            </button>
-        </div>
-    </div>
+    <div id="modal-opciones" class="modal">...</div>
+    <div id="modal-carrito" class="modal">...</div>
 
     <script src="app.js"></script>
 </body>
