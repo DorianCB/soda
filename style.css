@@ -1,19 +1,61 @@
 :root {
-    --primario: #e67e22;
-    --oscuro: #2c3e50;
-    --gris: #ecf0f1;
-    --exito: #27ae60;
+    --primario: #e67e22; /* El naranja del header */
+    --oscuro: #2c3e50; /* El azul oscuro del botón */
+    --gris: #ecf0f1;   /* El gris claro del fondo */
+    --exito: #27ae60;  /* El verde de WhatsApp */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 
 body { background-color: var(--gris); color: var(--oscuro); padding-bottom: 100px; }
 
+/* --- AJUSTES DEL HEADER --- */
 header {
-    background-color: var(--primario); color: white;
-    padding: 2.5rem 1rem; text-align: center; border-radius: 0 0 25px 25px;
+    background-color: var(--primario);
+    color: white;
+    padding: 1.5rem 1rem; /* Margen superior/inferior ajustado */
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+.header-contenido {
+    display: flex;
+    align-items: center; /* Centra verticalmente logo y texto */
+    justify-content: flex-start; /* ALINEA TODO A LA IZQUIERDA */
+    gap: 15px; /* Espacio entre el logo y el texto */
+    max-width: 600px; /* Evita que se estire demasiado en tablets */
+    margin: 0 auto; /* Centra el bloque entero si la pantalla es ancha */
+}
+
+.img-logo-header {
+    width: 28%; /* Ocupa el porcentaje como tu recuadro rojo (aprox) */
+    max-width: 90px; /* Pero no más grande que esto para que no se vea feo */
+    height: auto; /* Mantiene la proporción de la imagen */
+    border-radius: 50%; /* Hace el logo redondo */
+    object-fit: cover;
+    background-color: #f1c40f; /* Color amarillo de fondo del logo */
+    border: 3px solid white; /* Borde blanco para que resalte */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    flex-shrink: 0; /* Evita que el logo se aplaste */
+}
+
+.header-texto {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* ALINEA EL TEXTO A LA IZQUIERDA */
+}
+
+.header-texto h1 {
+    font-size: 1.6rem; /* Tamaño del título */
+    margin-bottom: 2px;
+}
+
+.header-texto p {
+    font-size: 0.95rem; /* Tamaño del subtítulo */
+    opacity: 0.9;
+}
+
+/* --- RESTO DEL DISEÑO --- */
 #menu { padding: 1rem; display: grid; gap: 15px; }
 
 .producto {
@@ -24,14 +66,17 @@ header {
 .img-producto { width: 100px; height: 100px; object-fit: cover; }
 
 .detalles-producto {
-    flex: 1; padding: 15px; display: flex;
-    justify-content: space-between; align-items: center;
+    flex: 1; padding: 15px;
+    display: flex; justify-content: space-between; align-items: center;
 }
 
+.info-producto h3 { font-size: 1.1rem; }
+
 .btn-agregar {
-    background-color: var(--oscuro); color: white; border: none;
-    width: 45px; height: 45px; border-radius: 12px;
-    cursor: pointer; font-size: 1.5rem; font-weight: bold;
+    background-color: var(--oscuro); color: white;
+    border: none; width: 40px; height: 40px;
+    border-radius: 10px; cursor: pointer; font-size: 1.4rem;
+    font-weight: bold;
 }
 
 /* Modales */
@@ -42,30 +87,29 @@ header {
 }
 
 .contenido-modal {
-    background-color: white; margin: 5% auto; padding: 25px;
+    background-color: white; margin: 5% auto; padding: 20px;
     border-radius: 20px; width: 92%; max-width: 480px;
-    position: relative; max-height: 90vh; overflow-y: auto;
+    position: relative; max-height: 85vh; overflow-y: auto;
 }
 
-/* Opciones y Notas */
 .seccion-opcion { margin: 20px 0; }
-.selector-tipo label {
-    display: block; background: var(--gris); padding: 12px;
+.seccion-opcion label {
+    display: block; padding: 12px; background: var(--gris);
     margin-bottom: 8px; border-radius: 10px; cursor: pointer;
 }
 
 textarea {
-    width: 100%; height: 80px; padding: 12px; border-radius: 10px;
+    width: 100%; height: 80px; padding: 10px; border-radius: 10px;
     border: 1px solid #ccc; font-family: inherit; resize: none; margin-top: 10px;
 }
 
-/* Carrito */
+/* Carrito en el modal */
 .item-carrito-fila {
     display: flex; align-items: flex-start; gap: 12px;
-    padding: 15px 0; border-bottom: 1px solid #eee;
+    padding: 12px 0; border-bottom: 1px solid #eee;
 }
 
-.item-carrito-fila img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+.item-carrito-fila img { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
 
 .item-info { flex-grow: 1; display: flex; flex-direction: column; }
 
@@ -81,6 +125,7 @@ textarea {
 
 .spinbox span { padding: 0 10px; font-weight: bold; min-width: 30px; text-align: center; }
 
+/* Botón flotante */
 #btn-carrito-flotante {
     position: fixed; bottom: 30px; right: 20px;
     background-color: var(--oscuro); color: white;
@@ -100,7 +145,7 @@ textarea {
 .btn-finalizar {
     width: 100%; background-color: var(--exito); color: white;
     border: none; padding: 18px; border-radius: 12px;
-    margin-top: 20px; font-weight: bold; cursor: pointer;
+    margin-top: 20px; font-weight: bold; font-size: 1rem; cursor: pointer;
 }
 
 .cerrar { position: absolute; right: 20px; top: 15px; font-size: 30px; cursor: pointer; }

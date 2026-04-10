@@ -12,24 +12,30 @@
 <body>
 
     <header>
-        <h1>Ventanita de Chavela</h1>
-        <p>Pedí por aquí y solo pasá a recoger 🌯</p>
+        <div class="header-contenido">
+            <img src="pictures/icono.png" alt="Logo Chavela" class="img-logo-header">
+            
+            <div class="header-texto">
+                <h1>Ventanita de Chavela</h1>
+                <p>Pedí por aquí y solo pasá a recoger 🌯</p>
+            </div>
+        </div>
     </header>
 
     <main id="menu">
         <div class="producto">
-            <img src="pictures/empanada.png" alt="Empanada" class="img-producto">
+            <img src="pictures/empanada.png" alt="Empanada Especial" class="img-producto">
             <div class="detalles-producto">
                 <div class="info-producto">
                     <h3>Empanada Especial</h3>
                     <p>₡1000</p>
                 </div>
-                <button class="btn-agregar" onclick="abrirOpciones('Empanada', 1000, 'pictures/empanada.png')">+</button>
+                <button class="btn-agregar" onclick="abrirOpciones('Empanada Especial', 1000, 'pictures/empanada.png')">+</button>
             </div>
         </div>
 
         <div class="producto">
-            <img src="pictures/casado.png" alt="Casado" class="img-producto">
+            <img src="pictures/casado.png" alt="Casado Completo" class="img-producto">
             <div class="detalles-producto">
                 <div class="info-producto">
                     <h3>Casado Completo</h3>
@@ -47,7 +53,7 @@
     <div id="modal-opciones" class="modal">
         <div class="contenido-modal">
             <span class="cerrar" onclick="cerrarOpciones()">&times;</span>
-            <h2 id="opciones-titulo">Personalizar</h2>
+            <h2 id="opciones-titulo">Opciones</h2>
             
             <div class="seccion-opcion">
                 <p><strong>¿De qué la quieres?</strong></p>

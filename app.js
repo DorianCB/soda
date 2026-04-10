@@ -3,7 +3,7 @@ let productoTemporal = null;
 
 // Para productos que NO necesitan personalización
 function agregarDirecto(nombre, precio, urlImagen) {
-    const itemExistente = carrito.find(item => item.nombre === nombre && !item.notas);
+    const itemExistente = carrito.find(item => item.nombre === nombre);
     if (itemExistente) {
         itemExistente.cantidad += 1;
     } else {
@@ -29,7 +29,6 @@ function confirmarAgregado() {
     const notas = document.getElementById('notas-producto').value.trim();
     const nombreCompleto = `${productoTemporal.nombre} (${relleno})`;
 
-    // Buscamos si ya existe con el mismo relleno Y las mismas notas
     const itemExistente = carrito.find(item => 
         item.nombre === nombreCompleto && item.notas === notas
     );
@@ -114,7 +113,7 @@ function enviarWhatsApp() {
         total += (item.precio * item.cantidad);
     });
 
-    texto += `*Total a pagar: ₡${total}*`;
+    texto += `%0A*Total a pagar: ₡${total}*`;
     const numeroChavela = "50687304779"; 
     window.open(`https://wa.me/${numeroChavela}?text=${texto}`, '_blank');
 }
