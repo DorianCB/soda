@@ -18,43 +18,49 @@
         </div>
     </header>
 
-    <div class="categorias-container">
+    <nav class="categorias-container">
         <button id="btn-todo" class="btn-categoria active" onclick="cambiarMenu('todo', this)">Menú General</button>
         <button id="btn-estudiantil" class="btn-categoria" onclick="cambiarMenu('estudiantil', this)">Estudiantil 🎓</button>
-    </div>
+    </nav>
 
     <main id="menu">
-        <div class="seccion-carrusel">
+        <section id="seccion-populares">
             <div class="carrusel-header">
                 <h2 id="titulo-seccion">Populares 🔥</h2>
+                <span class="ver-todo-btn" onclick="mostrarTodoEnGrid()">Ver todo</span>
             </div>
-            
             <div id="carrusel-dinamico" class="carrusel-horizontal"></div>
-        </div>
+        </section>
+
+        <section id="seccion-todo" style="display: none;">
+            <div class="grid-header">
+                <h2 id="titulo-grid">Menú Completo</h2>
+                <span class="ver-todo-btn" onclick="volverAlCarrusel()">← Volver</span>
+            </div>
+            <div id="grid-platos" class="grid-menu-completo"></div>
+        </section>
     </main>
 
-    <div id="modal-detalle" class="modal-detalle-full"></div>
+    <div id="modal-detalle" class="modal-full"></div>
 
-    <div id="modal-carrito" class="modal-carrito">
+    <div id="modal-carrito" class="modal-full">
         <div class="carrito-header">
-            <button class="btn-atras-carrito" onclick="cerrarCarrito()">← Atras</button>
+            <button class="atras-btn" onclick="cerrarCarrito()">← Atrás</button>
             <h2>Tu Pedido</h2>
-            <span></span> </div>
-
-        <div id="items-carrito-contenedor">
-            </div>
-
+            <div style="width: 40px;"></div>
+        </div>
+        <div id="items-carrito-lista" class="carrito-lista"></div>
         <div class="carrito-footer">
-            <div class="total-fila">
-                <span>Total a pagar:</span>
-                <span class="total-precio">₡<span id="total-precio-carrito">0</span></span>
+            <div class="total-contenedor">
+                <span>Total:</span>
+                <span class="total-monto">₡<span id="monto-total">0</span></span>
             </div>
-            <button class="btn-confirmar" onclick="enviarWhatsApp()">Confirmar por WhatsApp 📱</button>
+            <button class="confirmar-btn" onclick="enviarWhatsApp()">Confirmar Pedido 📱</button>
         </div>
     </div>
 
     <div id="btn-carrito-flotante" onclick="abrirCarrito()">
-        🛒 <span id="contador-carrito">0</span>
+        🛒 <span id="contador-badge">0</span>
     </div>
 
     <script src="app.js"></script>

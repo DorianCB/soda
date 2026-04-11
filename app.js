@@ -1,168 +1,172 @@
-// Base de datos de platos (Igual que antes)
-const platosMenu = {
+const platosDB = {
     'todo': [
-        { nombre: 'Casado Completo', precio: 3500, img: 'pictures/casado.png', desc: 'Arroz, frijoles, ensalada, plátano maduro y carne.' },
-        { nombre: 'Empanada Carne', precio: 1200, img: 'pictures/empanada.png', desc: 'Empanada grande con carne mechada.' },
-        { nombre: 'Taco Tico', precio: 1500, img: 'pictures/casado.png', desc: 'Taco tradicional con repollo y salsas.' }
+        { id: 1, nombre: 'Casado Completo', precio: 3500, img: 'pictures/casado.png', desc: 'Arroz, frijoles, ensalada, plátano maduro y carne.' },
+        { id: 2, nombre: 'Empanada Carne', precio: 1200, img: 'pictures/empanada.png', desc: 'Empanada grande artesanal recién hecha.' },
+        { id: 3, nombre: 'Taco Tico', precio: 1500, img: 'pictures/casado.png', desc: 'Taco tradicional con repollo y salsas.' }
     ],
     'estudiantil': [
-        { nombre: 'Promo Estudiante', precio: 2000, img: 'pictures/empanada.png', desc: 'Empanada + Fresco natural. ¡Solo con carnet!' },
-        { nombre: 'Burrito Económico', precio: 1500, img: 'pictures/casado.png', desc: 'Burrito de frijol y queso, perfecto para el receso.' },
-        { nombre: 'Bowl de Frutas', precio: 1000, img: 'pictures/empanada.png', desc: 'Fruta fresca de temporada.' }
+        { id: 4, nombre: 'Promo Estudiante', precio: 2000, img: 'pictures/empanada.png', desc: 'Empanada + Fresco natural. Presentar carnet.' },
+        { id: 5, nombre: 'Burrito Económico', precio: 1500, img: 'pictures/casado.png', desc: 'Burrito de frijol y queso, ideal para el receso.' }
     ]
 };
 
-// --- LÓGICA DEL CARRITO (MODIFICADA PARA CANTIDADES) ---
-// Guardamos como objeto: { 'Nombre': cantidad }
-let carritoModificado = {}; 
+let carrito = {}; // Estructura: { "id_del_producto": cantidad }
+let categoriaActual = 'todo';
 
-function añadirDesdeDetalle(nombre, precio) {
-    // Si no existe, lo inicializa en 1. Si existe, suma 1.
-    if (carritoModificado[nombre]) {
-        carritoModificado[nombre]++;
-    } else {
-        carritoModificado[nombre] = 1;
-    }
+// --- CAMBIO DE CATEGORÍA ---
+function cambiarMenu(cat, btn) {
+    categoriaActual = cat;
+    document.querySelectorAll('.btn-categoria').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
     
-    actualizarContador();
+    volverAlCarrusel(); // Resetear vista
+    renderizarCarrusel();
+}
+
+// --- RENDERIZADO DE VISTAS ---
+function renderizarCarrusel() {
+    const contenedor = document.getElementById('carrusel-dinamico');
+    contenedor.innerHTML = '';
+    
+    platosDB[categoriaActual].forEach(plato => {
+        contenedor.innerHTML += `
+            <div class="card-carrusel" onclick="abrirDetalle('${categoriaActual}', ${plato.id})">
+                <img src="${plato.img}">
+                <div class="precio-tag">₡${plato.precio}</div>
+                <div class="info-min"><h3>${plato.nombre}</h3></div>
+            </div>`;
+    });
+}
+
+function mostrarTodoEnGrid() {
+    document.getElementById('seccion-populares').style.display = 'none';
+    document.getElementById('seccion-todo').style.display = 'block';
+    
+    const grid = document.getElementById('grid-platos');
+    grid.innerHTML = '';
+    
+    platosDB[categoriaActual].forEach(plato => {
+        grid.innerHTML += `
+            <div class="card-grid" onclick="abrirDetalle('${categoriaActual}', ${plato.id})">
+                <img src="${plato.img}">
+                <div class="info-grid">
+                    <h3>${plato.nombre}</h3>
+                    <p style="color:var(--primario); font-weight:bold;">₡${plato.precio}</p>
+                </div>
+            </div>`;
+    });
+}
+
+function volverAlCarrusel() {
+    document.getElementById('seccion-populares').style.display = 'block';
+    document.getElementById('seccion-todo').style.display = 'none';
+}
+
+// --- DETALLE DEL PLATO ---
+function abrirDetalle(cat, id) {
+    const plato = platosDB[cat].find(p => p.id === id);
+    const modal = document.getElementById('modal-detalle');
+    
+    modal.innerHTML = `
+        <div style="position: relative;">
+            <button class="atras-btn" style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; border-radius: 50%;" onclick="cerrarDetalle()">✕</button>
+            <img src="${plato.img}" style="width: 100%; height: 300px; object-fit: cover;">
+            <div style="padding: 25px; background: white; border-radius: 30px 30px 0 0; margin-top: -30px; position: relative;">
+                <h1>${plato.nombre}</h1>
+                <p style="color:var(--primario); font-size: 1.5rem; font-weight: bold; margin: 10px 0;">₡${plato.precio}</p>
+                <p style="color: #666; line-height: 1.6;">${plato.desc}</p>
+                <button class="confirmar-btn" style="margin-top: 30px;" onclick="añadirAlCarrito(${plato.id})">Agregar al pedido 🛒</button>
+            </div>
+        </div>`;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarDetalle() {
+    document.getElementById('modal-detalle').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// --- LÓGICA DEL CARRITO ---
+function añadirAlCarrito(id) {
+    carrito[id] = (carrito[id] || 0) + 1;
+    actualizarInterfazCarrito();
     cerrarDetalle();
 }
 
-function actualizarContador() {
-    // Suma todas las cantidades del objeto
-    const totalItems = Object.values(carritoModificado).reduce((acc, cantidad) => acc + cantidad, 0);
-    document.getElementById('contador-carrito').innerText = totalItems;
+function cambiarCantidad(id, delta) {
+    if (carrito[id]) {
+        carrito[id] += delta;
+        if (carrito[id] <= 0) delete carrito[id];
+    }
+    actualizarInterfazCarrito();
+    dibujarListaCarrito();
 }
 
-function cambiarCantidad(nombre, cambio) {
-    if (carritoModificado[nombre]) {
-        carritoModificado[nombre] += cambio;
-        
-        // Si la cantidad llega a 0, lo elimina del carrito
-        if (carritoModificado[nombre] <= 0) {
-            delete carritoModificado[nombre];
-        }
-    }
-    dibujarCarrito(); // Redibuja la lista actualizada
-    actualizarContador();
+function actualizarInterfazCarrito() {
+    const totalItems = Object.values(carrito).reduce((a, b) => a + b, 0);
+    document.getElementById('contador-badge').innerText = totalItems;
 }
 
 function abrirCarrito() {
     document.getElementById('modal-carrito').style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Bloquea scroll de atrás
-    dibujarCarrito(); // Dibuja la lista al abrir
+    dibujarListaCarrito();
 }
 
 function cerrarCarrito() {
     document.getElementById('modal-carrito').style.display = 'none';
-    document.body.style.overflow = 'auto'; // Libera scroll
 }
 
-function dibujarCarrito() {
-    const contenedor = document.getElementById('items-carrito-contenedor');
-    contenedor.innerHTML = ''; // Limpia lista anterior
-    let totalPrecio = 0;
+function dibujarListaCarrito() {
+    const contenedor = document.getElementById('items-carrito-lista');
+    const totalTxt = document.getElementById('monto-total');
+    contenedor.innerHTML = '';
+    let sumaTotal = 0;
 
-    // Recorre el objeto de carrito modificado
-    for (const nombre in carritoModificado) {
-        const cantidad = carritoModificado[nombre];
-        
-        // Busca el plato en la base de datos para obtener precio e imagen
-        const platoData = [...platosMenu.todo, ...platosMenu.estudiantil].find(p => p.nombre === nombre);
-        
-        if (platoData) {
-            totalPrecio += platoData.precio * cantidad;
+    // Buscar en ambas categorías para encontrar el plato por ID
+    const todosLosPlatos = [...platosDB.todo, ...platosDB.estudiantil];
+
+    for (let id in carrito) {
+        const plato = todosLosPlatos.find(p => p.id == id);
+        if (plato) {
+            const subtotal = plato.precio * carrito[id];
+            sumaTotal += subtotal;
             
             contenedor.innerHTML += `
                 <div class="item-carrito">
-                    <img src="${platoData.img}" alt="${nombre}">
+                    <img src="${plato.img}">
                     <div class="item-info">
-                        <h4>${nombre}</h4>
-                        <p class="item-precio">₡${platoData.precio}</p>
+                        <h4>${plato.nombre}</h4>
+                        <p>₡${plato.precio}</p>
                     </div>
-                    <div class="item-controles">
-                        <button class="btn-cantidad" onclick="cambiarCantidad('${nombre}', -1)">−</button>
-                        <span class="item-cantidad">${cantidad}</span>
-                        <button class="btn-cantidad" onclick="cambiarCantidad('${nombre}', 1)">+</button>
+                    <div class="controles-cantidad">
+                        <button class="btn-qty" onclick="cambiarCantidad(${id}, -1)">−</button>
+                        <span>${carrito[id]}</span>
+                        <button class="btn-qty" onclick="cambiarCantidad(${id}, 1)">+</button>
                     </div>
-                </div>
-            `;
+                </div>`;
         }
     }
-
-    document.getElementById('total-precio-carrito').innerText = totalPrecio;
+    totalTxt.innerText = sumaTotal;
+    if (sumaTotal === 0) contenedor.innerHTML = '<p style="text-align:center; color:#999; margin-top:50px;">Tu carrito está vacío</p>';
 }
 
 function enviarWhatsApp() {
-    if (Object.keys(carritoModificado).length === 0) {
-        alert("El carrito está vacío.");
-        return;
-    }
-
-    let mensaje = "¡Hola Ventanita de Chavela! Quisiera hacer un pedido:%0A%0A";
+    const todosLosPlatos = [...platosDB.todo, ...platosDB.estudiantil];
+    let mensaje = "¡Hola Ventanita de Chavela! 🌯 Este es mi pedido:%0A%0A";
     let total = 0;
 
-    for (const nombre in carritoModificado) {
-        const cantidad = carritoModificado[nombre];
-        const platoData = [...platosMenu.todo, ...platosMenu.estudiantil].find(p => p.nombre === nombre);
-        
-        if (platoData) {
-            mensaje += `*${nombre}* (x${cantidad}) - ₡${platoData.precio * cantidad}%0A`;
-            total += platoData.precio * cantidad;
-        }
+    for (let id in carrito) {
+        const plato = todosLosPlatos.find(p => p.id == id);
+        mensaje += `• ${plato.nombre} (x${carrito[id]}) - ₡${plato.precio * carrito[id]}%0A`;
+        total += plato.precio * carrito[id];
     }
 
+    if (total === 0) return alert("Añade algo al carrito primero.");
+    
     mensaje += `%0A*Total: ₡${total}*`;
-    const numero = "50687994530"; // Tu número de SINPE
-    window.open(`https://wa.me/${numero}?text=${mensaje}`, '_blank');
+    window.open(`https://wa.me/50687304779?text=${mensaje}`, '_blank');
 }
 
-// --- FUNCIONES EXISTENTES (CARRUSEL, DETALLE, CATEGORÍAS) ---
-function cambiarMenu(categoria, boton) {
-    document.querySelectorAll('.btn-categoria').forEach(btn => btn.classList.remove('active'));
-    boton.classList.add('active');
-    const titulo = document.getElementById('titulo-seccion');
-    titulo.innerText = categoria === 'todo' ? 'Populares 🔥' : 'Especial Estudiantes 🎓';
-    const carrusel = document.getElementById('carrusel-dinamico');
-    carrusel.innerHTML = ''; 
-    platosMenu[categoria].forEach(plato => {
-        const card = document.createElement('div');
-        card.className = 'card-carrusel';
-        card.onclick = () => abrirDetalle(plato.nombre, plato.precio, plato.img, plato.desc);
-        card.innerHTML = `
-            <img src="${plato.img}" alt="${plato.nombre}">
-            <div class="precio-tag">₡${plato.precio}</div>
-            <div class="info-min">
-                <h3>${plato.nombre}</h3>
-            </div>
-        `;
-        carrusel.appendChild(card);
-    });
-}
-
-function abrirDetalle(nombre, precio, imagen, descripcion) {
-    const modal = document.getElementById('modal-detalle');
-    modal.innerHTML = `
-        <button class="btn-cerrar-detalle" onclick="cerrarDetalle()">✕</button>
-        <img src="${imagen}" class="img-detalle-full">
-        <div class="info-detalle-bloque">
-            <h1>${nombre}</h1>
-            <p style="color:var(--primario); font-size:1.5rem; font-weight:bold; margin: 10px 0;">₡${precio}</p>
-            <p style="color:#666; line-height:1.6;">${descripcion}</p>
-            <button class="btn-añadir-detalle" onclick="añadirDesdeDetalle('${nombre}', ${precio})">
-                Añadir al pedido 🛒
-            </button>
-        </div>
-    `;
-    modal.style.display = "block";
-    document.body.style.overflow = "hidden";
-}
-
-function cerrarDetalle() {
-    document.getElementById('modal-detalle').style.display = "none";
-    document.body.style.overflow = "auto";
-}
-
-window.onload = () => {
-    cambiarMenu('todo', document.getElementById('btn-todo'));
-};
+// Inicializar
+window.onload = () => renderizarCarrusel();
