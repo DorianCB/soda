@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventanita de Chavela - App</title>
+    <title>Ventanita de Chavela - Pedidos</title>
+    <link rel="icon" type="image/png" href="pictures/icono.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <div class="header-contenido">
-            <img src="pictures/icono.png" alt="Logo" class="img-logo-header">
+            <img src="pictures/icono.png" alt="Logo Chavela" class="img-logo-header">
             <div class="header-texto">
                 <h1>Ventanita de Chavela</h1>
                 <p>Sabor casero en un toque 🌯</p>
@@ -41,7 +42,7 @@
         </section>
     </main>
 
-    <div id="modal-detalle" class="modal-full"></div>
+    <div id="modal-opciones" class="modal-full"></div>
 
     <div id="modal-carrito" class="modal-full">
         <div class="carrito-header">
@@ -49,7 +50,29 @@
             <h2>Tu Pedido</h2>
             <div style="width: 40px;"></div>
         </div>
+        
         <div id="items-carrito-lista" class="carrito-lista"></div>
+
+        <div class="formulario-entrega">
+            <h3>Detalles de Entrega</h3>
+            <div class="campo">
+                <label>¿A qué hora lo necesitas? ⏰</label>
+                <input type="time" id="hora-entrega" class="input-entrega">
+            </div>
+            <div class="campo">
+                <label>Ubicación o "¿Retira en local?" 📍</label>
+                <textarea id="ubicacion-entrega" class="notas-area" placeholder="Ej: 200m norte de la escuela..."></textarea>
+            </div>
+            <div class="campo">
+                <label>Método de Pago 💵</label>
+                <select id="metodo-pago" class="select-personalizado">
+                    <option value="SINPE Móvil">SINPE Móvil</option>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta (Datáfono)</option>
+                </select>
+            </div>
+        </div>
+
         <div class="carrito-footer">
             <div class="total-contenedor">
                 <span>Total:</span>
