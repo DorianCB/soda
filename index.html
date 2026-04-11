@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba Carrusel - Chavela</title>
+    <title>Ventanita de Chavela - App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,14 +13,14 @@
             <img src="pictures/icono.png" alt="Logo" class="img-logo-header">
             <div class="header-texto">
                 <h1>Ventanita de Chavela</h1>
-                <p>Menú de Prueba 🌯</p>
+                <p>Sabor casero en un toque 🌯</p>
             </div>
         </div>
     </header>
 
     <div class="categorias-container">
-        <button class="btn-categoria active">Menú General</button>
-        <button class="btn-categoria">Estudiantil 🎓</button>
+        <button class="btn-categoria active" onclick="filtrarMenu('todo', this)">Menú General</button>
+        <button class="btn-categoria" onclick="filtrarMenu('estudiantil', this)">Estudiantil 🎓</button>
     </div>
 
     <main id="menu">
@@ -31,42 +31,41 @@
             </div>
             
             <div class="carrusel-horizontal">
-                
-                <div class="card-carrusel">
-                    <img src="pictures/empanada.png" alt="Plato">
+                <div class="card-carrusel" onclick="abrirDetalle('Empanada de Carne', 1000, 'pictures/empanada.png', 'Deliciosa empanada de maíz sazonada, rellena con carne mechada de primera. Acompañada de repollo picado.')">
+                    <img src="pictures/empanada.png" alt="Empanada">
                     <div class="precio-tag">₡1000</div>
                     <div class="info-min">
                         <h3>Empanada de Carne</h3>
                     </div>
                 </div>
 
-                <div class="card-carrusel">
-                    <img src="pictures/casado.png" alt="Plato">
+                <div class="card-carrusel" onclick="abrirDetalle('Casado Completo', 3500, 'pictures/casado.png', 'El almuerzo perfecto: Arroz, frijoles, ensalada fresca, plátano maduro y carne a elegir. ¡Pura vida!')">
+                    <img src="pictures/casado.png" alt="Casado">
                     <div class="precio-tag">₡3500</div>
                     <div class="info-min">
-                        <h3>Casado de la Casa</h3>
+                        <h3>Casado Completo</h3>
                     </div>
                 </div>
 
-                <div class="card-carrusel">
-                    <img src="pictures/empanada.png" alt="Plato">
-                    <div class="precio-tag">₡1200</div>
+                <div class="card-carrusel" onclick="abrirDetalle('Taco Tico', 1500, 'pictures/empanada.png', 'Taco de carne con repollo, ketchup y mayonesa al estilo tradicional.')">
+                    <img src="pictures/empanada.png" alt="Taco">
+                    <div class="precio-tag">₡1500</div>
                     <div class="info-min">
-                        <h3>Empanada de Pollo</h3>
+                        <h3>Taco Tico</h3>
                     </div>
                 </div>
-
-                <div class="card-carrusel">
-                    <img src="pictures/casado.png" alt="Plato">
-                    <div class="precio-tag">₡2500</div>
-                    <div class="info-min">
-                        <h3>Medio Casado</h3>
-                    </div>
-                </div>
-
             </div>
         </div>
+
+        <div id="grid-menu" class="grid-menu">
+            </div>
     </main>
+
+    <div id="modal-detalle" class="modal-detalle-full"></div>
+
+    <div id="btn-carrito-flotante" onclick="abrirCarrito()">
+        🛒 <span id="contador-carrito">0</span>
+    </div>
 
     <script src="app.js"></script>
 </body>
