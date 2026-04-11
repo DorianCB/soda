@@ -19,49 +19,39 @@
     </header>
 
     <div class="categorias-container">
-        <button class="btn-categoria active" onclick="filtrarMenu('todo', this)">Menú General</button>
-        <button class="btn-categoria" onclick="filtrarMenu('estudiantil', this)">Estudiantil 🎓</button>
+        <button id="btn-todo" class="btn-categoria active" onclick="cambiarMenu('todo', this)">Menú General</button>
+        <button id="btn-estudiantil" class="btn-categoria" onclick="cambiarMenu('estudiantil', this)">Estudiantil 🎓</button>
     </div>
 
     <main id="menu">
         <div class="seccion-carrusel">
             <div class="carrusel-header">
-                <h2>Populares 🔥</h2>
-                <span class="ver-todo">Ver todo</span>
+                <h2 id="titulo-seccion">Populares 🔥</h2>
             </div>
             
-            <div class="carrusel-horizontal">
-                <div class="card-carrusel" onclick="abrirDetalle('Empanada de Carne', 1000, 'pictures/empanada.png', 'Deliciosa empanada de maíz sazonada, rellena con carne mechada de primera. Acompañada de repollo picado.')">
-                    <img src="pictures/empanada.png" alt="Empanada">
-                    <div class="precio-tag">₡1000</div>
-                    <div class="info-min">
-                        <h3>Empanada de Carne</h3>
-                    </div>
-                </div>
-
-                <div class="card-carrusel" onclick="abrirDetalle('Casado Completo', 3500, 'pictures/casado.png', 'El almuerzo perfecto: Arroz, frijoles, ensalada fresca, plátano maduro y carne a elegir. ¡Pura vida!')">
-                    <img src="pictures/casado.png" alt="Casado">
-                    <div class="precio-tag">₡3500</div>
-                    <div class="info-min">
-                        <h3>Casado Completo</h3>
-                    </div>
-                </div>
-
-                <div class="card-carrusel" onclick="abrirDetalle('Taco Tico', 1500, 'pictures/empanada.png', 'Taco de carne con repollo, ketchup y mayonesa al estilo tradicional.')">
-                    <img src="pictures/empanada.png" alt="Taco">
-                    <div class="precio-tag">₡1500</div>
-                    <div class="info-min">
-                        <h3>Taco Tico</h3>
-                    </div>
-                </div>
-            </div>
+            <div id="carrusel-dinamico" class="carrusel-horizontal"></div>
         </div>
-
-        <div id="grid-menu" class="grid-menu">
-            </div>
     </main>
 
     <div id="modal-detalle" class="modal-detalle-full"></div>
+
+    <div id="modal-carrito" class="modal-carrito">
+        <div class="carrito-header">
+            <button class="btn-atras-carrito" onclick="cerrarCarrito()">← Atras</button>
+            <h2>Tu Pedido</h2>
+            <span></span> </div>
+
+        <div id="items-carrito-contenedor">
+            </div>
+
+        <div class="carrito-footer">
+            <div class="total-fila">
+                <span>Total a pagar:</span>
+                <span class="total-precio">₡<span id="total-precio-carrito">0</span></span>
+            </div>
+            <button class="btn-confirmar" onclick="enviarWhatsApp()">Confirmar por WhatsApp 📱</button>
+        </div>
+    </div>
 
     <div id="btn-carrito-flotante" onclick="abrirCarrito()">
         🛒 <span id="contador-carrito">0</span>
