@@ -2,13 +2,13 @@
     --primario: #e67e22;
     --oscuro: #2c3e50;
     --gris: #ecf0f1;
-    --exito: #27ae60;
+    --blanco: #ffffff;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background-color: var(--gris); padding-bottom: 100px; }
+body { background-color: var(--gris); }
 
-/* Header Centrado */
+/* Header Simple */
 header {
     background-color: var(--primario);
     color: white;
@@ -17,54 +17,78 @@ header {
     justify-content: center;
     border-radius: 0 0 25px 25px;
 }
-.header-contenido {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-}
-.img-logo-header { width: 85px; height: 85px; border-radius: 50%; border: 3px solid white; }
+.header-contenido { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.img-logo-header { width: 70px; height: 70px; border-radius: 50%; border: 2px solid white; }
 
-/* Categorías */
+/* Botones Categoría */
 .categorias-container { display: flex; justify-content: center; gap: 10px; padding: 20px; }
 .btn-categoria {
-    flex: 1; max-width: 150px; padding: 12px; border: none;
-    border-radius: 15px; background: white; font-weight: bold;
+    flex: 1; max-width: 140px; padding: 10px; border: none;
+    border-radius: 12px; background: white; font-weight: bold; color: var(--oscuro);
 }
 .btn-categoria.active { background: var(--primario); color: white; }
 
-/* Grid de Productos (Cuadros 10/10) */
-.grid-menu {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 15px;
-}
-.producto-card {
-    background: white;
-    border-radius: 18px;
-    overflow: hidden;
+/* --- CARRUSEL FUNCIONAL --- */
+.carrusel-header {
     display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 10px;
 }
-.imagen-contenedor { position: relative; width: 100%; aspect-ratio: 1/1; }
-.imagen-contenedor img { width: 100%; height: 100%; object-fit: cover; }
+.carrusel-header h2 { font-size: 1.1rem; }
+.ver-todo { color: var(--primario); font-size: 0.9rem; font-weight: bold; }
 
-.btn-flotante-agregar {
-    position: absolute; bottom: 8px; right: 8px;
-    background: var(--oscuro); color: white; border: none;
-    width: 35px; height: 35px; border-radius: 10px; font-weight: bold;
+.carrusel-horizontal {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto; /* ESTO PERMITE EL SCROLL */
+    padding: 10px 20px 30px; /* Padding abajo para la sombra */
+    scroll-snap-type: x mandatory; /* Hace que "salte" de plato en plato */
+    -webkit-overflow-scrolling: touch; /* Suavidad en iPhone */
 }
-.info-card { padding: 10px; }
-.info-card h3 { font-size: 0.9rem; margin-bottom: 4px; }
-.info-card .precio { font-weight: bold; color: var(--primario); }
 
-/* Carrito Flotante */
-#btn-carrito-flotante {
-    position: fixed; bottom: 25px; right: 20px;
-    background: var(--oscuro); color: white;
-    width: 60px; height: 60px; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
+/* Ocultar la barra de scroll para que se vea como una app */
+.carrusel-horizontal::-webkit-scrollbar { display: none; }
+
+.card-carrusel {
+    flex: 0 0 150px; /* Ancho fijo de cada plato */
+    height: 200px;
+    background: white;
+    border-radius: 20px;
+    position: relative;
+    scroll-snap-align: start;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+}
+
+.card-carrusel img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 20px 20px 0 0;
+}
+
+/* El Precio Flotante */
+.precio-tag {
+    position: absolute;
+    top: 105px; /* Posicionado entre la imagen y el texto */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primario);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    z-index: 10;
+}
+
+.info-min {
+    padding-top: 25px; /* Espacio para que el precio no tape el texto */
+    text-align: center;
+    padding-inline: 5px;
+}
+.info-min h3 {
+    font-size: 0.85rem;
+    color: var(--oscuro);
 }

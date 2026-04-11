@@ -3,57 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventanita de Chavela - Pedidos</title>
-    <link rel="icon" type="image/png" href="pictures/icono.png">
+    <title>Prueba Carrusel - Chavela</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <div class="header-contenido">
-            <img src="pictures/icono.png" alt="Logo Chavela" class="img-logo-header">
+            <img src="pictures/icono.png" alt="Logo" class="img-logo-header">
             <div class="header-texto">
                 <h1>Ventanita de Chavela</h1>
-                <p>Pedí por aquí y solo pasá a recoger 🌯</p>
+                <p>Menú de Prueba 🌯</p>
             </div>
         </div>
     </header>
 
     <div class="categorias-container">
-        <button class="btn-categoria active" onclick="filtrarMenu('todo', this)">Menú General</button>
-        <button class="btn-categoria" onclick="filtrarMenu('estudiantil', this)">Estudiantil 🎓</button>
+        <button class="btn-categoria active">Menú General</button>
+        <button class="btn-categoria">Estudiantil 🎓</button>
     </div>
 
-    <main id="menu" class="grid-menu">
-        <div class="producto-card">
-            <div class="imagen-contenedor">
-                <img src="pictures/casado.png" alt="Casado">
-                <button class="btn-flotante-agregar" onclick="agregarDirecto('Casado Completo', 3500, 'pictures/casado.png')">+</button>
+    <main id="menu">
+        <div class="seccion-carrusel">
+            <div class="carrusel-header">
+                <h2>Populares 🔥</h2>
+                <span class="ver-todo">Ver todo</span>
             </div>
-            <div class="info-card">
-                <h3>Casado Completo</h3>
-                <p class="precio">₡3500</p>
-            </div>
-        </div>
+            
+            <div class="carrusel-horizontal">
+                
+                <div class="card-carrusel">
+                    <img src="pictures/empanada.png" alt="Plato">
+                    <div class="precio-tag">₡1000</div>
+                    <div class="info-min">
+                        <h3>Empanada de Carne</h3>
+                    </div>
+                </div>
 
-        <div class="producto-card estudiantil">
-            <div class="imagen-contenedor">
-                <img src="pictures/empanada.png" alt="Empanada">
-                <button class="btn-flotante-agregar" onclick="abrirOpciones('Empanada Especial', 1000, 'pictures/empanada.png')">+</button>
-            </div>
-            <div class="info-card">
-                <h3>Empanada Estudiantil</h3>
-                <p class="precio">₡1000</p>
+                <div class="card-carrusel">
+                    <img src="pictures/casado.png" alt="Plato">
+                    <div class="precio-tag">₡3500</div>
+                    <div class="info-min">
+                        <h3>Casado de la Casa</h3>
+                    </div>
+                </div>
+
+                <div class="card-carrusel">
+                    <img src="pictures/empanada.png" alt="Plato">
+                    <div class="precio-tag">₡1200</div>
+                    <div class="info-min">
+                        <h3>Empanada de Pollo</h3>
+                    </div>
+                </div>
+
+                <div class="card-carrusel">
+                    <img src="pictures/casado.png" alt="Plato">
+                    <div class="precio-tag">₡2500</div>
+                    <div class="info-min">
+                        <h3>Medio Casado</h3>
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
-
-    <div id="btn-carrito-flotante" onclick="abrirCarrito()">
-        🛒 <span id="contador-carrito">0</span>
-    </div>
-
-    <div id="modal-opciones" class="modal">...</div>
-    <div id="modal-carrito" class="modal">...</div>
 
     <script src="app.js"></script>
 </body>
