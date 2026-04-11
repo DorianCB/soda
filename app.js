@@ -151,15 +151,27 @@ function dibujarListaCarrito() {
     document.getElementById('monto-total').innerText = sumaTotal;
 }
 
+// ... (mismo código anterior de la base de datos y carrito) ...
+
 function enviarWhatsApp() {
+    // Capturar nuevos campos
+    const nombre = document.getElementById('nombre-cliente').value.trim();
     const hora = document.getElementById('hora-entrega').value;
-    const ubicacion = document.getElementById('ubicacion-entrega').value;
+    const ubicacion = document.getElementById('ubicacion-entrega').value.trim();
     const pago = document.getElementById('metodo-pago').value;
 
-    if (!hora || !ubicacion) return alert("Por favor completa la hora y ubicación.");
+    // Validación: que no falte información clave
+    if (!nombre || !hora || !ubicacion) {
+        return alert("Por favor, completa tu nombre, la hora y la ubicación.");
+    }
 
     const todosPlatos = [...platosDB.todo, ...platosDB.estudiantil];
-    let mensaje = "¡Hola Ventanita de Chavela! 🌯%0A*Nuevo Pedido de la App*%0A%0A";
+    
+    // Encabezado del mensaje con el nombre resaltado
+    let mensaje = `¡Hola Ventanita de Chavela! 🌯%0A`;
+    mensaje += `*PEDIDO A NOMBRE DE:* ${nombre.toUpperCase()}%0A%0A`;
+    mensaje += `*Detalle de la orden:*%0A`;
+    
     let total = 0;
 
     for (let key in carrito) {
@@ -170,10 +182,18 @@ function enviarWhatsApp() {
         total += p.precio * item.cantidad;
     }
 
-    mensaje += `%0A💰 *Total: ₡${total}*%0A---%0A⏰ *Hora:* ${hora}%0A📍 *Ubicación:* ${ubicacion}%0A💳 *Pago:* ${pago}`;
+    mensaje += `%0A💰 *Total a pagar: ₡${total}*`;
+    mensaje += `%0A%0A--- *Datos de Entrega* ---%0A`;
+    mensaje += `⏰ *Hora:* ${hora}%0A`;
+    mensaje += `📍 *Ubicación:* ${ubicacion}%0A`;
+    mensaje += `💳 *Pago:* ${pago}`;
 
     if (total === 0) return alert("El carrito está vacío.");
+    
+    // Abrir WhatsApp con el número 87304779
     window.open(`https://wa.me/50687304779?text=${mensaje}`, '_blank');
 }
+
+// ... (resto de funciones de carrusel y carrito se mantienen igual) ...
 
 window.onload = () => renderizarCarrusel();

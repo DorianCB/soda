@@ -54,24 +54,32 @@
         <div id="items-carrito-lista" class="carrito-lista"></div>
 
         <div class="formulario-entrega">
-            <h3>Detalles de Entrega</h3>
-            <div class="campo">
-                <label>¿A qué hora lo necesitas? ⏰</label>
-                <input type="time" id="hora-entrega" class="input-entrega">
-            </div>
-            <div class="campo">
-                <label>Ubicación o "¿Retira en local?" 📍</label>
-                <textarea id="ubicacion-entrega" class="notas-area" placeholder="Ej: 200m norte de la escuela..."></textarea>
-            </div>
-            <div class="campo">
-                <label>Método de Pago 💵</label>
-                <select id="metodo-pago" class="select-personalizado">
-                    <option value="SINPE Móvil">SINPE Móvil</option>
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Tarjeta">Tarjeta (Datáfono)</option>
-                </select>
-            </div>
-        </div>
+    <h3>Detalles de Entrega</h3>
+    
+    <div class="campo">
+        <label>¿A nombre de quién? 👤</label>
+        <input type="text" id="nombre-cliente" class="input-entrega" placeholder="Tu nombre completo">
+    </div>
+
+    <div class="campo">
+        <label>¿A qué hora lo necesitas? ⏰</label>
+        <input type="time" id="hora-entrega" class="input-entrega">
+    </div>
+    
+    <div class="campo">
+        <label>Ubicación o "¿Retira en local?" 📍</label>
+        <textarea id="ubicacion-entrega" class="notas-area" placeholder="Ej: 200m norte de la escuela..."></textarea>
+    </div>
+
+    <div class="campo">
+        <label>Método de Pago 💵</label>
+        <select id="metodo-pago" class="select-personalizado">
+            <option value="SINPE Móvil">SINPE Móvil</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="Tarjeta">Tarjeta (Datáfono)</option>
+        </select>
+    </div>
+</div>
 
         <div class="carrito-footer">
             <div class="total-contenedor">
